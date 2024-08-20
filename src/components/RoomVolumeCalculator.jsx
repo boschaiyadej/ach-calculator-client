@@ -1,29 +1,33 @@
 import { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const RoomVolumeCalculator = () => {
+  const [length, setLength] = useState("");
+  const [width, setWidth] = useState("");
+  const [height, setHeight] = useState("");
   const [roomVolume, setRoomVolume] = useState("N/A");
+  const [showToast, setShowToast] = useState(false);
 
   const calculateRoomVolume = () => {
-    const length = parseFloat(document.getElementById("length").value);
-    const width = parseFloat(document.getElementById("width").value);
-    const height = parseFloat(document.getElementById("height").value);
-    if (!isNaN(length) && !isNaN(width) && !isNaN(height)) {
-      setRoomVolume((length * width * height).toFixed(2));
+    const l = parseFloat(length);
+    const w = parseFloat(width);
+    const h = parseFloat(height);
+    if (!isNaN(l) && !isNaN(w) && !isNaN(h)) {
+      setRoomVolume((l * w * h).toFixed(2));
     }
   };
 
   const copyResultRoomVolume = () => {
-    navigator.clipboard
-      .writeText(roomVolume + " m³")
-      .then(() =>
-        alert("Total Room Volume copied to clipboard: " + roomVolume + " m³")
-      );
+    navigator.clipboard.writeText(roomVolume + " m³").then(() => {
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
+    });
   };
 
   const resetRoomVolumeForm = () => {
-    document.getElementById("length").value = "";
-    document.getElementById("width").value = "";
-    document.getElementById("height").value = "";
+    setLength("");
+    setWidth("");
+    setHeight("");
     setRoomVolume("N/A");
   };
 
@@ -38,6 +42,8 @@ const RoomVolumeCalculator = () => {
               type="number"
               className="form-control"
               id="length"
+              value={length}
+              onChange={(e) => setLength(e.target.value)}
               placeholder="Enter length (m)"
               required
             />
@@ -48,6 +54,8 @@ const RoomVolumeCalculator = () => {
               type="number"
               className="form-control"
               id="width"
+              value={width}
+              onChange={(e) => setWidth(e.target.value)}
               placeholder="Enter width (m)"
               required
             />
@@ -58,6 +66,8 @@ const RoomVolumeCalculator = () => {
               type="number"
               className="form-control"
               id="height"
+              value={height}
+              onChange={(e) => setHeight(e.target.value)}
               placeholder="Enter height (m)"
               required
             />
@@ -91,6 +101,31 @@ const RoomVolumeCalculator = () => {
           >
             Reset
           </button>
+        </div>
+      </div>
+
+      {/* Bootstrap Toast for copy notification */}
+      <div
+        className={`toast position-fixed bottom-0 end-0 p-3 ${
+          showToast ? "show" : ""
+        }`}
+        style={{ zIndex: 11 }}
+        id="liveToast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div className="toast-header">
+          <strong className="me-auto">Notification</strong>
+          <button
+            type="button"
+            className="btn-close"
+            onClick={() => setShowToast(false)}
+            aria-label="Close"
+          ></button>
+        </div>
+        <div className="toast-body">
+          Total Room Volume copied to clipboard: {roomVolume} m³
         </div>
       </div>
     </div>
