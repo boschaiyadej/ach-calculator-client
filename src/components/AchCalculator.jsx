@@ -52,7 +52,7 @@ const AchCalculator = () => {
         ach,
       };
       try {
-        await axios.post("", formData);
+        await axios.post("http://localhost:5000/ach", formData);
         showToastMessage("Data submitted successfully!");
       } catch {
         showToastMessage("Error submitting data. Please try again.");
@@ -148,7 +148,7 @@ const AchCalculator = () => {
               className="btn btn-success mt-3"
               onClick={submitData}
             >
-              Submit
+              Save Data
             </button>
           </div>
         )}
@@ -163,8 +163,8 @@ const AchCalculator = () => {
         aria-live="assertive"
         aria-atomic="true"
       >
-        <div className="toast-header text-bg-danger">
-          <strong className="me-auto">Error</strong>
+        <div className="toast-header text-bg-primary">
+          <strong className="me-auto">Notification</strong>
           <button
             type="button"
             className="btn-close"

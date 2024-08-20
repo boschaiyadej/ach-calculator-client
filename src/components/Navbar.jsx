@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FaHome, FaCalculator } from "react-icons/fa";
+import { FaHome, FaCalculator, FaList } from "react-icons/fa";
 
 function Navbar() {
   return (
@@ -14,6 +14,11 @@ function Navbar() {
           <li className="nav-item">
             <Link className="nav-link" to="/ach-calculator">
               <FaCalculator /> ACH Calculator
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/ach-list">
+              <FaList /> ACH List
             </Link>
           </li>
         </ul>
