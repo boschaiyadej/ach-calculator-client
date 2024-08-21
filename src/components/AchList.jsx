@@ -9,7 +9,7 @@ const AchList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/ach");
+        const response = await axios.get("http://10.104.0.2/ach");
 
         console.log("API Response:", response.data);
 
